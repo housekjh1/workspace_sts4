@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.pnu.domain.MemberVO;
 
 @RestController
 public class MemberController {
+
 	List<MemberVO> list;
 
 	public MemberController() {
@@ -56,6 +59,15 @@ public class MemberController {
 			list.add(m);
 			return list.get(m.getId());
 		}
+	}
 
+	@PutMapping("/member")
+	public MemberVO updateMembers(MemberVO m) {
+		return null;
+	}
+
+	@DeleteMapping("/member/{id}")
+	public MemberVO removeMember(@PathVariable Integer id) {
+		return null;
 	}
 }
