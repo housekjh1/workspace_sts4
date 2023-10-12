@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,7 @@ public class MemberController {
 
 	public MemberController() {
 		list = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 1; i <= 5; i++) {
 			MemberVO m = new MemberVO();
 			m.setId(i);
 			m.setPass("pass" + i);
@@ -30,44 +32,81 @@ public class MemberController {
 		}
 	}
 
-	@GetMapping("/member")
+	@GetMapping("/member") // http://localhost:8080/member
 	public List<MemberVO> getMembers() {
 		return list;
 	}
 
-	@GetMapping("/member/{id}")
+	private MemberVO findMember(Integer id) {
+		for (MemberVO m : list) {
+			if (m.getId() == id)
+				return m;
+		}
+		return null;
+	}
+
+	// MemberVO에서 id가 {id}인 데이터를 찾아서 리턴
+	@GetMapping("/member/{id}") // http://localhost:8080/member/5 ==> id가 5인 데이터를 찾아서 리턴
 	public MemberVO getMember(@PathVariable Integer id) {
-		if (id == null) {
-			System.out.println("아이디를 입력하세요.");
-			return null;
+		return findMember(id);
+	}
+
+	// 현재 입력되어 있는 객체들의 id를 조사해서 최댓값에 1을 더해 리턴
+	private int getNextId() {
+		int mid = -1;
+		for (MemberVO m : list) {
+			if (mid < m.getId())
+				mid = m.getId();
 		}
-		if (list.get(id).getId() == id) {
-			System.out.println("회원이 존재합니다.");
-			return list.get(id);
-		} else {
-			System.out.println("존재하지 않는 회원입니다.");
-			return null;
-		}
+		return mid + 1;
 	}
 
 	@PostMapping("/member")
 	public MemberVO addMember(MemberVO m) {
-		if (list.get(m.getId()).getId() == m.getId()) {
-			System.out.println("이미 존재하는 회원입니다.");
+		if (m.getName() == null || m.getPass() == null)
 			return null;
-		} else {
-			list.add(m);
-			return list.get(m.getId());
-		}
+		m.setId(getNextId());
+		m.setRegidate(new Date());
+		list.add(m);
+		return m;
+
+	}
+
+	@PostMapping("/member1")
+	public ResponseEntity<?> addMember1(MemberVO m) {
+
+		if (m.getName() == null || m.getPass() == null)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
+
+		m.setId(getNextId());
+		m.setRegidate(new Date());
+		list.add(m);
+
+//		return ResponseEntity.status(HttpStatus.OK).body(m);
+		return ResponseEntity.ok(m);
 	}
 
 	@PutMapping("/member")
 	public MemberVO updateMembers(MemberVO m) {
-		return null;
+		MemberVO m1 = findMember(m.getId());
+		if (m1.getName() != null)
+			m1.setName(m.getName());
+		if (m1.getPass() != null)
+			m1.setPass(m.getPass());
+
+		return m1;
 	}
 
 	@DeleteMapping("/member/{id}")
 	public MemberVO removeMember(@PathVariable Integer id) {
+
+		for (int i = 0; i < list.size(); i++) {
+			MemberVO m = list.get(i);
+			if (m.getId() == id) {
+				list.remove(i);
+				return m;
+			}
+		}
 		return null;
 	}
 }
