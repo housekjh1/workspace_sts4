@@ -58,8 +58,8 @@ public class MemberService {
 	public MemberVO updateMember(MemberVO memberVO) {
 		for (MemberVO m : list) {
 			if (m.getId() == memberVO.getId()) {
-				m.setPass(memberVO.getPass());
-				m.setName(memberVO.getName());
+				if (memberVO.getPass() != null) m.setPass(memberVO.getPass());
+				if (memberVO.getName() != null) m.setName(memberVO.getName());
 				return m;
 			}
 		}

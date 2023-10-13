@@ -34,7 +34,7 @@ public class MemberController {
 	}
 
 	@PutMapping("/member")
-	public MemberVO updateMembers(MemberVO memberVO) {
+	public MemberVO updateMember(MemberVO memberVO) {
 		return memberService.updateMember(memberVO);
 	}
 
