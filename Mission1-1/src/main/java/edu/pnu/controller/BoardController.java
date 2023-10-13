@@ -27,6 +27,11 @@ public class BoardController {
 		return boardService.getBoard(seq);
 	}
 
+	@GetMapping("/getboard")
+	public BoardVO getBoard1(Integer seq) {
+		return boardService.getBoard(seq);
+	}
+
 	@PostMapping("/board")
 	public BoardVO addBoard(BoardVO boardVO) {
 		return boardService.addBoard(boardVO);
@@ -38,7 +43,12 @@ public class BoardController {
 	}
 
 	@DeleteMapping("/board/{seq}")
-	public BoardVO removeBoard(@PathVariable Integer seq) {
+	public ResponseEntity<?> removeBoard(@PathVariable Integer seq) {
+		return boardService.removeBoard(seq);
+	}
+
+	@DeleteMapping("/board")
+	public ResponseEntity<?> removeBoard1(Integer seq) {
 		return boardService.removeBoard(seq);
 	}
 }

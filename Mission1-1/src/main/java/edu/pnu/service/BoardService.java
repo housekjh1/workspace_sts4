@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import edu.pnu.domain.BoardVO;
 
 public class BoardService {
@@ -71,14 +74,14 @@ public class BoardService {
 		return null;
 	}
 	
-	public BoardVO removeBoard(Integer seq) {
+	public ResponseEntity<?> removeBoard(Integer seq) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getSeq() == seq) {
 				BoardVO tmp = list.get(i);
 				list.remove(i);
-				return tmp;
+				return ResponseEntity.ok(tmp);
 			}
 		}
-		return null;
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 }
