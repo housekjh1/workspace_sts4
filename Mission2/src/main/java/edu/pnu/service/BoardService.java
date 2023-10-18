@@ -12,12 +12,12 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import edu.pnu.domain.MemberVO;
+import edu.pnu.domain.BoardVO;
 
-public class MemberService {
-	Connection con = null;
+public class BoardService {
+	Connection con;
 
-	public MemberService() {
+	public BoardService() {
 		try {
 			Class.forName("org.h2.Driver");
 			con = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/.h2/Mission2", "sa", "abcd");
@@ -26,21 +26,21 @@ public class MemberService {
 		}
 	}
 
-	public ResponseEntity<?> getMembers() {
-		List<MemberVO> list = new ArrayList<>();
+	public List<BoardVO> getBoards() {
 		Statement st = null;
 		ResultSet rs = null;
-		String query = "select * from member";
+		String query = "select * from board";
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
+			List<BoardVO> list = new ArrayList<>();
 			while (rs.next()) {
-				MemberVO tmp = new MemberVO();
-				tmp = MemberVO.builder().id(rs.getInt(1)).pass(rs.getString(2)).name(rs.getString(3))
-						.regidate(rs.getDate(4)).build();
+				BoardVO tmp = new BoardVO();
+				tmp = BoardVO.builder().seq(rs.getLong(1)).cnt(rs.getLong(2)).content(rs.getString(3))
+						.createDate(rs.getDate(4)).title(rs.getString(5)).writer(rs.getString(6)).build();
 				list.add(tmp);
 			}
-			return ResponseEntity.ok(list);
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -53,23 +53,21 @@ public class MemberService {
 				e.printStackTrace();
 			}
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		return null;
 	}
 
-	public ResponseEntity<?> getMember(Integer id) {
-		if (id == null)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	public BoardVO getBoard(long seq) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		String query = "select * from member where id=?";
+		String query = "select * from board where seq=?";
 		try {
 			pst = con.prepareStatement(query);
-			pst.setInt(1, id);
+			pst.setLong(1, seq);
 			rs = pst.executeQuery();
 			rs.next();
-			MemberVO tmp = MemberVO.builder().id(rs.getInt(1)).pass(rs.getString(2)).name(rs.getString(3))
-					.regidate(rs.getDate(4)).build();
-			return ResponseEntity.ok(tmp);
+			BoardVO tmp = BoardVO.builder().seq(rs.getLong(1)).cnt(rs.getLong(2)).content(rs.getString(3))
+					.createDate(rs.getDate(4)).title(rs.getString(5)).writer(rs.getString(6)).build();
+			return tmp;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -82,21 +80,22 @@ public class MemberService {
 				e.printStackTrace();
 			}
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		return null;
 	}
 
-	public int addMember(MemberVO memberVO) {
-		if (memberVO.getPass() == null || memberVO.getName() == null)
-			return 0;
+	public ResponseEntity<?> addBoard(BoardVO boardVO) {
 		PreparedStatement pst = null;
 		int result = 0;
-		String query = "insert into member (pass, name) values (?, ?)";
+		String query = "insert into board (content, title, writer) values (?, ?, ?)";
 		try {
 			pst = con.prepareStatement(query);
-			pst.setString(1, memberVO.getPass());
-			pst.setString(2, memberVO.getName());
+			pst.setString(1, boardVO.getContent());
+			pst.setString(2, boardVO.getTitle());
+			pst.setString(3, boardVO.getWriter());
 			result = pst.executeUpdate();
-			return result;
+			BoardVO tmp = BoardVO.builder().content(boardVO.getContent()).title(boardVO.getTitle())
+					.writer(boardVO.getWriter()).build();
+			return ResponseEntity.ok(tmp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -107,26 +106,43 @@ public class MemberService {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 
-	public int updateMember(MemberVO memberVO) {
+	public int updateBoard(BoardVO boardVO) {
 		PreparedStatement pst = null;
+		ResultSet rs = null;
 		int result = 0;
-		String query = "update member set pass=?, name=? where id=?";
+		String query = "update board set content=?, title=?, writer=? where seq=?";
+		String query1 = "select * from board where seq=?";
 		try {
+			pst = con.prepareStatement(query1);
+			pst.setLong(1, boardVO.getSeq());
+			rs = pst.executeQuery();
+			rs.next();
+			
 			pst = con.prepareStatement(query);
-			if (memberVO.getPass() != null)
-				pst.setString(1, memberVO.getPass());
-			if (memberVO.getName() != null)
-				pst.setString(2, memberVO.getName());
-			pst.setInt(3, memberVO.getId());
+			if (boardVO.getContent() != null)
+				pst.setString(1, boardVO.getContent());
+			else
+				pst.setString(1, rs.getString(3));
+			if (boardVO.getTitle() != null)
+				pst.setString(2, boardVO.getTitle());
+			else
+				pst.setString(2, rs.getString(5));
+			if (boardVO.getWriter() != null)
+				pst.setString(3, boardVO.getWriter());
+			else
+				pst.setString(3, rs.getString(6));
+			pst.setLong(4, boardVO.getSeq());
 			result = pst.executeUpdate();
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
+				if (rs != null)
+					rs.close();
 				if (pst != null)
 					pst.close();
 			} catch (SQLException e) {
@@ -136,13 +152,13 @@ public class MemberService {
 		return 0;
 	}
 
-	public int removeMember(Integer id) {
+	public int removeBoard(long seq) {
 		PreparedStatement pst = null;
 		int result = 0;
-		String query = "delete member where id=?";
+		String query = "delete board where seq=?";
 		try {
 			pst = con.prepareStatement(query);
-			pst.setInt(1, id);
+			pst.setLong(1, seq);
 			result = pst.executeUpdate();
 			return result;
 		} catch (Exception e) {

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.pnu.domain.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
 public class MemberDAO {
 
 	Connection con;
@@ -94,7 +93,6 @@ public class MemberDAO {
 		return null;
 	}
 
-	@PostMapping("/member")
 	public int addMember(MemberVO memberVO) {
 
 		String query = "insert into member (pass, name) values (?, ?)";
@@ -120,7 +118,6 @@ public class MemberDAO {
 		return 0;
 	}
 
-	@PutMapping("/member")
 	public int updateMember(MemberVO memberVO) {
 		PreparedStatement pst = null;
 		int result;
@@ -145,7 +142,6 @@ public class MemberDAO {
 		return 0;
 	}
 
-	@DeleteMapping("/member")
 	public int removeMember(int id) {
 		PreparedStatement pst = null;
 		int result;
