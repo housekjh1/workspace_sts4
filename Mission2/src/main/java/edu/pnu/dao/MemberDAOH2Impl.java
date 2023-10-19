@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.pnu.domain.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
-public class MemberDAO {
+public class MemberDAOH2Impl implements MemberInterface {
 
 	Connection con;
 	List<MemberVO> list;
 
-	public MemberDAO() {
+	public MemberDAOH2Impl() {
 		list = new ArrayList<>();
 		try {
 			Class.forName("org.h2.Driver");
@@ -162,5 +162,35 @@ public class MemberDAO {
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	public List<MemberVO> getMembers1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO getMember1(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO addMember1(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO updateMember1(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO removeMember1(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
