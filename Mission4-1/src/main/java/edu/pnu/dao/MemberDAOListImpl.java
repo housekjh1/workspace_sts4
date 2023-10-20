@@ -20,22 +20,22 @@ public class MemberDAOListImpl implements MemberInterface {
 		}
 	}
 
-	public List<MemberVO> getMembers() {
-		return list;
-	}
-
-	public MemberVO getMember(Integer id) {
-		for (MemberVO m : list) {
-			if (m.getId() == id) {
-				return m;
-			}
-		}
+	public Map<String, Object> getMembers() {
 		return null;
 	}
 
-	public int addMember(MemberVO memberVO) {
+	public Map<String, Object> getMember(Integer id) {
+//		for (MemberVO m : list) {
+//			if (m.getId() == id) {
+//				return m;
+//			}
+//		}
+		return null;
+	}
+
+	public Map<String, Object> addMember(MemberVO memberVO) {
 		if (memberVO.getPass() == null || memberVO.getName() == null)
-			return 0;
+			return null;
 		int idx = -1;
 		for (MemberVO m : list) {
 			if (idx < m.getId())
@@ -48,34 +48,29 @@ public class MemberDAOListImpl implements MemberInterface {
 		MemberVO tmp = MemberVO.builder().id(idx).pass(memberVO.getPass()).name(memberVO.getName()).regidate(new Date())
 				.build();
 		list.add(tmp);
-		return 1;
+		return null;
 	}
 
-	public int updateMember(MemberVO memberVO) {
+	public Map<String, Object> updateMember(MemberVO memberVO) {
 		for (MemberVO m : list) {
 			if (m.getId() == memberVO.getId()) {
 				if (memberVO.getPass() != null)
 					m.setPass(memberVO.getPass());
 				if (memberVO.getName() != null)
 					m.setName(memberVO.getName());
-				return 1;
+				return null;
 			}
 		}
-		return 0;
+		return null;
 	}
 
-	public int removeMember(Integer id) {
+	public Map<String, Object> removeMember(Integer id) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getId() == id) {
 				list.remove(i);
-				return 1;
+				return null;
 			}
 		}
-		return 0;
-	}
-
-	public Map<String, Object> addMemberWithMap(MemberVO memberVO) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

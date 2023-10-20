@@ -33,27 +33,41 @@ public class MemberService {
 	}
 
 	public List<MemberVO> getMembers() {
-		return dao.getMembers();
+		Map<String, Object> map = dao.getMembers();
+		List<MemberVO> result = (List<MemberVO>) map.get("result");
+		log.addLog("GET", (String) map.get("sql"), !result.isEmpty() ? true : false);
+		return result;
 	}
 
 	public MemberVO getMember(Integer id) {
-		return dao.getMember(id);
+		Map<String, Object> map = dao.getMember(id);
+		MemberVO result = (MemberVO) map.get("result");
+		log.addLog("GET", (String) map.get("sql"), !(result == null) ? true : false);
+		return result;
 	}
 
 	public int addMember(MemberVO memberVO) {
-//		return dao.addMember(memberVO);
-		Map<String, Object> map = dao.addMemberWithMap(memberVO);
+		Map<String, Object> map = dao.addMember(memberVO);
 		int result = (int) map.get("result");
-		log.addLog("post", (String) map.get("sql"), result == 1 ? true : false);
+		log.addLog("POST", (String) map.get("sql"), result == 1 ? true : false);
 		return result;
 	}
 
 	public int updateMember(MemberVO memberVO) {
-		return dao.updateMember(memberVO);
+		Map<String, Object> map = dao.updateMember(memberVO);
+		int result = 0;
+		if (map.get("result") != null) {
+			result = (int) map.get("result");
+		}
+		log.addLog("PUT", (String) map.get("sql"), map.get("result") != null ? true : false);
+		return result;
 	}
 
 	public int removeMember(Integer id) {
-		return dao.removeMember(id);
+		Map<String, Object> map = dao.removeMember(id);
+		int result = (int) map.get("result");
+		log.addLog("DELETE", (String) map.get("sql"), result == 1 ? true : false);
+		return result;
 	}
 
 }
