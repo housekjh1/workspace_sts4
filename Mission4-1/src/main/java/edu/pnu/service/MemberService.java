@@ -16,7 +16,7 @@ import edu.pnu.domain.MemberVO;
 @Service
 public class MemberService {
 	private MemberInterface dao;
-	LogInterface log;
+	private LogInterface log;
 
 	public MemberService(Environment environment) {
 		String type = environment.getProperty("mywebservice.data.type");
