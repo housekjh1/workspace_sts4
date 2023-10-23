@@ -13,3 +13,5 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 > [Hibernate EntityManager](https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager/5.6.15.Final)
 #### H2 Database Engine
 > [H2 Database Engine](https://mvnrepository.com/artifact/com.h2database/h2/2.2.224)
+### Project > Configure > Convert > Maven Project
+### Project > Properties > Project Facets > Convert to faceted form... > JPA Check & Apply
