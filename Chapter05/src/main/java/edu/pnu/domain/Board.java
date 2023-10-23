@@ -31,7 +31,9 @@ public class Board {
 	private String writer;
 	private String content;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate;
-	private Long cnt;
+	@Builder.Default
+	private Date createDate = new Date();
+	@Builder.Default
+	private Long cnt = 0L;
 	
 }
