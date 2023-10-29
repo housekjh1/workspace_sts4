@@ -17,7 +17,7 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 ### Project > Properties > Project Facets > Convert to faceted form... > JPA Check & Apply
 ### QueryDSL
 > <!--dependency-->
-            <dependency>
+		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>5.0.0</version>
@@ -29,3 +29,23 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 			<version>5.0.0</version>
 			<classifier>jakarta</classifier>
 		</dependency>
+### QueryDSL Plugin
+> <!--plugin-->
+		<plugin>
+			<groupId>com.mysema.maven</groupId>
+			<artifactId>apt-maven-plugin</artifactId>
+			<version>1.1.3</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>process</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>
+							target/generated-sources/annotations</outputDirectory>
+						<processor>
+							com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
