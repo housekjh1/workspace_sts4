@@ -15,3 +15,37 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 > [H2 Database Engine](https://mvnrepository.com/artifact/com.h2database/h2/2.2.224)
 ### Project > Configure > Convert > Maven Project
 ### Project > Properties > Project Facets > Convert to faceted form... > JPA Check & Apply
+### QueryDSL
+> <!--dependency-->
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>5.0.0</version>
+			<classifier>jakarta</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>5.0.0</version>
+			<classifier>jakarta</classifier>
+		</dependency>
+### QueryDSL Plugin
+> <!--plugin-->
+		<plugin>
+			<groupId>com.mysema.maven</groupId>
+			<artifactId>apt-maven-plugin</artifactId>
+			<version>1.1.3</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>process</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>
+							target/generated-sources/annotations</outputDirectory>
+						<processor>
+							com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
