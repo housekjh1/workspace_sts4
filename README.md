@@ -49,3 +49,14 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 				</execution>
 			</executions>
 		</plugin>
+### jstl & tomcat-embed-jasper
+> <!--dependency-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
