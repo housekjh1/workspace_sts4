@@ -49,6 +49,7 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 				</execution>
 			</executions>
 		</plugin>
+## STS4 JSP 관련
 ### jstl & tomcat-embed-jasper
 > <!--dependency-->
 		<dependency>
@@ -60,6 +61,6 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
-## Help > Install New Software
+### Help > Install New Software
 - --All Available Sites--
 - 'web' 검색 후 '%OSGI%' 하위 모든 항목 설치
