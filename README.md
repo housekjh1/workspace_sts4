@@ -63,4 +63,4 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 		</dependency>
 ### Help > Install New Software
 - --All Available Sites--
-- 'web' 검색 후 '%OSGI%' 하위 모든 항목 설치
+- 'web' 검색 후 '%OSGi%' 하위 모든 항목 설치
