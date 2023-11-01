@@ -7,7 +7,9 @@ https://spring.io/tools
 
 lombok 추가 : sts4 설치 위치에 설치, 프로젝트 우클릭 - Maven - Update Project
 https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
-
+#### 디펜던시 후속추가
+프로젝트 우클릭 > Spring > Add Starters<br/>
+프로젝트 우클릭 > Maven > Update Project
 ### Maven Project pom.xml
 #### Hibernate EntityManager
 > [Hibernate EntityManager](https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager/5.6.15.Final)
@@ -49,3 +51,18 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 				</execution>
 			</executions>
 		</plugin>
+## STS4 JSP 관련
+### jstl & tomcat-embed-jasper
+> <!--dependency-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+### Help > Install New Software
+- --All Available Sites--
+- 'web' 검색 후 '%OSGi%' 하위 모든 항목 설치
