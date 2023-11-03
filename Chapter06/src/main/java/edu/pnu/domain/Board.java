@@ -30,9 +30,7 @@ public class Board {
 	private String content;
 	@Column(updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	@Builder.Default
 	private Date createDate = new Date();
 //	@Column(insertable = false, updatable = false)
-	@Builder.Default
 	private Long cnt = 0L;
 }
