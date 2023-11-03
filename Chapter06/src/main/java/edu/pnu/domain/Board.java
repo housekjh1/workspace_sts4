@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,8 +28,11 @@ public class Board {
 	@Column(updatable = false)
 	private String writer;
 	private String content;
-	@Column(insertable = false, updatable = false)
-	private Date createDate;
-	@Column(insertable = false, updatable = false)
-	private Long cnt;
+	@Column(updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Builder.Default
+	private Date createDate = new Date();
+//	@Column(insertable = false, updatable = false)
+	@Builder.Default
+	private Long cnt = 0L;
 }

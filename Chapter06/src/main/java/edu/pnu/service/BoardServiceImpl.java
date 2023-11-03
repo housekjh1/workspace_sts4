@@ -23,7 +23,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	public Board getBoard(Board board) {
-		return boardRepo.findById(board.getSeq()).get();
+		Board tmp = boardRepo.findById(board.getSeq()).get();
+		Long n = tmp.getCnt();
+		tmp.setCnt(++n);
+		boardRepo.save(tmp);
+		return tmp;
 	}
 	
 	public void updateBoard(Board board) {
