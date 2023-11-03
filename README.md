@@ -55,9 +55,17 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 ### jstl & tomcat-embed-jasper
 > <!--dependency-->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -66,3 +74,5 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 ### Help > Install New Software
 - --All Available Sites--
 - 'web' 검색 후 '%OSGi%' 하위 모든 항목 설치
+### 인코딩 설정
+- Window > Preferences > 'encoding'검색 > Web/XML세부항목 "UTF-8"로 수정
