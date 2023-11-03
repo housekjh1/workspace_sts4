@@ -74,3 +74,5 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 ### Help > Install New Software
 - --All Available Sites--
 - 'web' 검색 후 '%OSGi%' 하위 모든 항목 설치
+### 인코딩 설정
+- Window > Preferences > 'encoding'검색 > Web/XML세부항목 "UTF-8"로 수정
