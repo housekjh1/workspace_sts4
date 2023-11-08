@@ -1,7 +1,5 @@
 package edu.pnu.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -14,20 +12,17 @@ import edu.pnu.domain.Member;
 import edu.pnu.persistence.MemberRepository;
 
 @Service
-public class BoardUserDetailsService implements UserDetailsService {
-
+public class SecurityUserDetailsService implements UserDetailsService {
+	
 	@Autowired
 	private MemberRepository memRepo;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Member> option = memRepo.findById(username);
-		if (!option.isPresent()) {
-			throw new UsernameNotFoundException("사용자가 없습니다.");
-		}
-		Member member = option.get();
+		Member member = memRepo.findById(username).orElseThrow(()->
+				new UsernameNotFoundException("Not Found!"));
 		return new User(member.getUsername(), member.getPassword(),
-						AuthorityUtils.createAuthorityList(member.getRole().toString()));
+				AuthorityUtils.createAuthorityList(member.getRole().toString()));
 	}
-
+	
 }
