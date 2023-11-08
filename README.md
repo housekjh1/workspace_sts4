@@ -76,3 +76,10 @@ https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.30
 - 'web' 검색 후 '%OSGi%' 하위 모든 항목 설치
 ### 인코딩 설정
 - Window > Preferences > 'encoding'검색 > Web/XML세부항목 "UTF-8"로 수정
+### java-jwt
+> <!--dependency-->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.4.0</version>
+		</dependency>
