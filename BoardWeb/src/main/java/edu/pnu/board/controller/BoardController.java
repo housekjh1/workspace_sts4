@@ -30,7 +30,7 @@ public class BoardController {
 			search.setSearchKeyword("");
 		}
 		Page<Board> boardList = boardServ.getBoardList(search);
-		model.addAttribute("name", principal.getAttribute("name"));
+//		model.addAttribute("name", principal.getAttribute("name"));
 		model.addAttribute("boardList", boardList);
 		return "board/getBoardList";
 	}
@@ -43,7 +43,7 @@ public class BoardController {
 
 	@GetMapping("/insertBoard")
 	public String insertBoardView(Model model, @AuthenticationPrincipal OAuth2User principal) {
-		model.addAttribute("name", principal.getAttribute("name"));
+//		model.addAttribute("name", principal.getAttribute("name"));
 		return "/board/insertBoard";
 	}
 
